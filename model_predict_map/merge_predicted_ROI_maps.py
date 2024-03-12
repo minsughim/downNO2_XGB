@@ -42,7 +42,7 @@ def iter_dates(start, stop):
         current += timedelta(days=1)
 
 def plot_save_fig(ds,fname):     
-
+    #This procduces figure of merged data of near-surface NO2 concentrations in the ROI for each time step
     print(fname)
     fig = plt.figure(figsize=(8,6))
     ax = plt.axes(projection=ccrs.PlateCarree())
@@ -70,6 +70,7 @@ def plot_save_fig(ds,fname):
     plt.close("all")
 
 def combine_maps_make_figures(date):
+    #This function comblines the predcited maps of sub regions (1 degree by 1 degree in lon and lat -thusm, 36 sub regions within the ROI)
     for hr in range(24):
         filenames = ROI+'_'+modeln+r'_no2_'+date.strftime('%Y-%m-%d')+'T' +str(hr).zfill(2)+'_*.nc'   
         fname = filenames.split('*')[0][:-1]
@@ -80,8 +81,8 @@ def combine_maps_make_figures(date):
             if len(listfns) == 36:
                 try:
                     with xr.open_mfdataset(listfns, combine='by_coords') as ds:
-                        ds.to_netcdf(target)
-                        plot_save_fig(ds, fname)
+                        ds.to_netcdf(target) #save merged prediction of NO2 within ROI 
+                        plot_save_fig(ds, fname) # plot a map 
                 except:
                     print('file not saved:' + fname)                       
             else:
@@ -89,13 +90,7 @@ def combine_maps_make_figures(date):
                 print('Data missing:'+fname) 
         else:
             print('file exists:' + fname) 
-            
-def load_maps_make_figures(date):
-    for hr in range(24):
-        filename = ROI+'_'+modeln+r'_no2_'+date.strftime('%Y-%m-%d')+'T' +str(hr).zfill(2)+'.nc'   
-        target = os.path.join(root, 'models',model_ID, 'Results', 'Hourly', filename)             
-        with xr.open_dataset(target) as ds:
-            plot_save_fig(ds, filename[:-3])
+
 
 
 # %%
