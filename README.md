@@ -1,13 +1,13 @@
 # downNO2_XGB
 <img src="https://github.com/minsughim/downNO2_XGB/blob/main/figures/Graphical_abstract.png" width="100%">
 
- This is a repository of scripts to make high-resolution maps of near-surface NO<sub>2</sub> using an XGB tree model
+ This is a repository of scripts to make high-resolution maps of near-surface NO<sub>2</sub> using an XGB tree model. 
+ 
 
 
-# Getting Started
 
-
-# Near-surface NO<sub>2</sub> concentrations in Alpine region (Switzerland and Northern Italy)
+# Near-surface NO<sub>2</sub> concentrations in Alpine region (Switzerland and Northern Italy) during March 2019 (100m, hourly resolution)
+[GAW_poster_kim_video.mp4](..\..\..\..\Nextcloud\Documents\projects\downno2\presentation\GAW_poster_kim_video.mp4)
 
 
 
