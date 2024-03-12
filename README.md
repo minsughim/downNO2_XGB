@@ -32,19 +32,24 @@ This work includes multiple dataset
 # Data process 
 
 
-# Model train and predict
+# Model train
+An XGB model can be trained using a pre-processed data (gap-filled, interpolated, AQ station-wise sorted). For the stratified sampling, umap-clustering method is used in the script. 
+- ./model_train/xgb_train_save.py can be used 
 
+# Predict and make NO<sub>2</sub> maps 
+- STEP1: ./model_predict_map/predict_maps_month.py can be used to make prediction for a sub-region within the region of interest (ROI). The division of the ROI to multiple subregions are required to resolve the memory issue.
+
+- STEP2: ./model_predict_map/merge_predicted_ROI_maps.py can be used to merge predictions of sub-regions to a single netCDF file (using xarray) and make a plot as shown in the publication
 
 
 # Near-surface NO<sub>2</sub> concentrations in Alpine region (Switzerland and Northern Italy) during March 2019 (100m, hourly resolution)
 
-
-https://github.com/minsughim/downNO2_XGB/assets/38297771/1cb24f3e-e414-4c90-ad81-69464b4fe67d
+<video src=https://github.com/minsughim/downNO2_XGB/assets/38297771/1cb24f3e-e414-4c90-ad81-69464b4fe67d     width="100%" />
 
 
 
 # Reference
-**Minsu Kim**, Dominik Brunner, Gerrit Kuhlmann,(2021) Importance of satellite observations for high-resolution mapping of near-surface NO<sub>2</sub> by machine learning, _Remote Sensing of Environment_, __264__,112573,
-[https://doi.org/10.1016/j.rse.2021.112573](https://doi.org/10.1016/j.rse.2021.112573 "Persistent link using digital object identifier")
+**Minsu Kim**, Dominik Brunner, Gerrit Kuhlmann. Importance of satellite observations for high-resolution mapping of near-surface NO<sub>2</sub> by machine learning, _Remote Sensing of Environment_, __264__,112573,
+[https://doi.org/10.1016/j.rse.2021.112573](https://doi.org/10.1016/j.rse.2021.112573 "Persistent link using digital object identifier"), 2021.
 
 **Minsu Kim**, Kuhlmann Gerrit, and Brunner Dominik. Dataset for: Importance of satellite observations for high-resolution mapping of near-surface NO<sub>2</sub> by machine learning. *Zenodo*, 14(23):5403-5424, DOI: http://doi.org/10.5281/zenodo.5036643, 2021. 
