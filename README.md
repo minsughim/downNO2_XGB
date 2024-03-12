@@ -77,7 +77,7 @@ An XGB model can be trained using a pre-processed data (gap-filled, interpolated
 
 # Near-surface NO<sub>2</sub> concentrations in Alpine region (Switzerland and Northern Italy) during March 2019 (100m, hourly resolution)
 
-<video src=https://github.com/minsughim/downNO2_XGB/assets/38297771/1cb24f3e-e414-4c90-ad81-69464b4fe67d     width="100%" />
+<video src=https://github.com/minsughim/downNO2_XGB/assets/38297771/1cb24f3e-e414-4c90-ad81-69464b4fe67d     width="100%">
 
 
 # Reference
