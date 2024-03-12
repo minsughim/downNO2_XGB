@@ -1,4 +1,7 @@
 # downNO2_XGB
+
+ ![alt text](https://github.com/minsughim/DBM-for-drying-soils/blob/master/schematics_DBM_pH.PNG)
+
  This is a repositroy of scripts to make high-resolution maps of near-surfaece NO2 using a XGB tree model
 
 
