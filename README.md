@@ -1,6 +1,6 @@
 # downNO2_XGB
+<img src="(https://github.com/minsughim/downNO2_XGB/blob/main/figures/Graphical_abstract.png" width="200" />
 
- ![alt text](https://github.com/minsughim/downNO2_XGB/blob/main/figures/Graphical_abstract.png)
 
  This is a repositroy of scripts to make high-resolution maps of near-surfaece NO2 using a XGB tree model
 
