@@ -1,16 +1,26 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Apr  9 13:10:54 2019
-Download sentinel 5p NO2 vertical column density and process 
-after the process, delete files 
-@author: kim
+Downloadload sentinel 5p NO2 vertical column density and process 
+after the process, delete files and process (gap-filling) data 
+
+Reference: 
+Kuhlmann, G., Hartl, A., Cheung, H. M., Lam, Y. F., and Wenig, M. O (2014)
+A novel gridding algorithm to create regional trace gas maps from satellite observations, Atmos. Meas. Tech., 7, 451–467, https://doi.org/10.5194/amt-7-451-2014, 2014. 
+
+Minsu Kim, Dominik Brunner, Gerrit Kuhlmann (2021) 
+Importance of satellite observations for high-resolution mapping of near-surface NO2 by machine learning, 
+Remote sensing of Environment DOI: https://doi.org/10.1016/j.rse.2021.112573
+
+@author: Minsu Kim (minsu.kim@empa.ch) at Empa - Swiss Federal Laboratories for Materials Science and Technology
+ORCID:https://orcid.org/0000-0002-3942-3743
+
 """
 from datetime import datetime, timedelta
 import argparse
 import os
 import textwrap
 import glob
-import sys
 
 import matplotlib
 matplotlib.use('agg')
@@ -19,7 +29,6 @@ import xarray
 
 from amrs import models
 import omi
-import netCDF4
 import pandas as pd
 
 # %% functions 

@@ -5,7 +5,9 @@ The results include
 1. original smod (settlement model) data
 2. the shortest distance to a urban boundary 
 3. the shortest distance to a city boundary 
-@author: kim (minsu.kim@empa.ch)
+@author: Minsu Kim (minsu.kim@empa.ch) at Empa - Swiss Federal Laboratories for Materials Science and Technology
+ORCID:https://orcid.org/0000-0002-3942-3743
+
 """
 import xarray as xr
 from scipy import ndimage
@@ -47,7 +49,7 @@ def load_urban_info(ROI):
     return urban_info
 
 # %% creating settlement mode information and diffusable components analysis of population density ==== making a one netcdf with five variables. 
-root = '/scratch/snx3000/minsukim/'
+root = '.'
 
 ROIList = ['ROI1', 'ROI2']
 for ROI in ROIList:

@@ -9,7 +9,10 @@ The results include
 
 NOTE: This script is computationally very expensive and (in piz daint, workers were killed due to unknown reasons), thus this script is discarded for the model
 :as an alternative feature, gaussian colvolution of population distribtuion is chosen. Details of the convolution method, see convolution_urban_dist.py 
-@author: kim (minsu.kim@empa.ch)
+
+@author: Minsu Kim (minsu.kim@empa.ch) at Empa - Swiss Federal Laboratories for Materials Science and Technology
+ORCID:https://orcid.org/0000-0002-3942-3743
+
 """
 import xarray as xr
 from scipy import ndimage
@@ -95,8 +98,8 @@ def load_urbaninds_dempop(ROI):
         
 
 # %% open settlement model (smod) and query for distance to urban and reindex the basic information including distance to urban and city save the info in netcdf
-root = '/scratch/snx3000/minsukim/'
-#root = '.'
+
+root = '.'
 global dempop, distance0, ROI
 
 ROIList = ['ROI1', 'ROI2']

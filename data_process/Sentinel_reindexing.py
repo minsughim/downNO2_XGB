@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+"""
+Python script for reindexing Sentinel 5p data (Level 2),
+The target grid is given from land use data of CORINE2018 (100m scale)
+For imputed data, such as nan, qa vaules below 0.5 are assigned nan
+For interpolation, 'nearest' method is used
+
+Reference: 
+Minsu Kim, Dominik Brunner, Gerrit Kuhlmann (2021) 
+Importance of satellite observations for high-resolution mapping of near-surface NO2 by machine learning, 
+Remote sensing of Environment DOI: https://doi.org/10.1016/j.rse.2021.112573
+
+@author: Minsu Kim (minsu.kim@empa.ch) at Empa - Swiss Federal Laboratories for Materials Science and Technology
+ORCID:https://orcid.org/0000-0002-3942-3743
+
+"""
+
 import os
 import xarray as xr
 import numpy as np
@@ -99,8 +115,7 @@ def main():
     parser.add_argument('stoptime', type=str, help='stop date (YYYY-mm-dd or YYYY-jjj)')
     parser.add_argument('ROI', type=str, help='region of interest (type ROI1 or ROI2 -- ROI1: Alpine or ROI2:Benelux)')
     
-# TODO : make a flexible code to select a region of interest ROI : [lon_min, lon_max, lat_min, lat_max]
-# If the land usage data (100m resolution) is the target resoltuion, land usage data for the selected region should be rewrapped.
+    # If the land usage data (100m resolution) is the target resoltuion, land usage data for the selected region should be rewrapped.
 
     parser.add_argument('--prefix', default='.', type=str, help='root folder')
     

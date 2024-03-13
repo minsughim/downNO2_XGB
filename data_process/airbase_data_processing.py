@@ -5,10 +5,15 @@ This script processes downloaded AIRBASE data using airbase_data_down.py(/downno
 In this script sorts stations of NO2 and sort the staion information and the timeseries in a folder of the respective region of interest (ROI1, Alpine, and ROI2, Benelux)
 The meta information file of AIRBASE can be downloaded from https://polybox.ethz.ch/index.php/s/hTyhS24aDjjqkdP
 For detailed information, https://www.eea.europa.eu/data-and-maps/data/aqereporting-8#tab-metadata 
-by Minsu Kim (minsu.kim@empa.ch)
-"""
-# TODO : make a flexible script for general region of interests
 
+Reference: 
+Minsu Kim, Dominik Brunner, Gerrit Kuhlmann (2021) 
+Importance of satellite observations for high-resolution mapping of near-surface NO2 by machine learning, 
+Remote sensing of Environment DOI: https://doi.org/10.1016/j.rse.2021.112573
+
+@author: Minsu Kim (minsu.kim@empa.ch) at Empa - Swiss Federal Laboratories for Materials Science and Technology
+ORCID:https://orcid.org/0000-0002-3942-3743
+"""
 import pandas as pd
 import os
 import glob
@@ -59,11 +64,3 @@ for f in filenames:
     else:
         print(stnname+'::number of files:'+str(len(stnfiles)))
           
-#    df = pd.concat( [pd.read_csv(sf,usecols=[4,10,11,12,13,14,15,16],keep_date_col=True,date_parser=True,encoding='utf-16') for sf in stnfiles] ) 
-#    startyear = stnfiles[0].split("_")[-2]
-#    newfilename = stnname+'_'+startyear+'_2019.csv'
-#
-#    df = pd.read_csv(f, usecols=[4,10,11,12,13,14,15,16],keep_date_col=True,date_parser=True,encoding='utf-16')
-#    newfilename = stnname+'_2018_2019.csv'
-    
-

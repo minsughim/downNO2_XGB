@@ -11,7 +11,13 @@ Method: Using gaussian convolutions of distribution of diffusables, spatial fact
 
 All newly calculated features are combined in a new dataset, ROI_featues.nc
 
-@author: kim (minsu.kim@empa.ch)
+Reference: 
+Minsu Kim, Dominik Brunner, Gerrit Kuhlmann (2021) 
+Importance of satellite observations for high-resolution mapping of near-surface NO2 by machine learning, 
+Remote sensing of Environment DOI: https://doi.org/10.1016/j.rse.2021.112573
+
+@author: Minsu Kim (minsu.kim@empa.ch) at Empa - Swiss Federal Laboratories for Materials Science and Technology
+ORCID:https://orcid.org/0000-0002-3942-3743
 """
 import xarray as xr
 import os
@@ -71,7 +77,7 @@ def plot_distribution_of_NOX_stns(dsvar):
     
 
 # %%
-root = '/scratch/snx3000/minsukim/'
+root = '.'
 
 ROIlist = ['ROI1', 'ROI2']
 max_sigma = 100 

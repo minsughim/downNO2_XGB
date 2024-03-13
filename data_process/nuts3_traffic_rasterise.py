@@ -3,10 +3,14 @@
 This code extract the road information of region of interest and process per nuts3 region
 at the end of the code each nut3 regions are combined in a single raster file
 
-by Minsu Kim (minsu.kim@empa.ch)
+Reference: 
+Minsu Kim, Dominik Brunner, Gerrit Kuhlmann (2021) 
+Importance of satellite observations for high-resolution mapping of near-surface NO2 by machine learning, 
+Remote sensing of Environment DOI: https://doi.org/10.1016/j.rse.2021.112573
+
+@author: Minsu Kim (minsu.kim@empa.ch) at Empa - Swiss Federal Laboratories for Materials Science and Technology
+ORCID:https://orcid.org/0000-0002-3942-3743
 """
-# TODO : better documenting!!
-# TODO : clear path dependency 
 
 import os
 import pandas as pd
@@ -14,30 +18,7 @@ import shapefile
 from shapely.geometry import MultiLineString, Polygon, box
 import numpy as np
 import xarray as xr
-#from distributed import Client
-#client = Client() # For local 
-#client = Client(scheduler_file=os.environ['DASK_SCHED_FILE']) #For Piz Daint
 import glob
-
-# %% to make a target raster file using the same resolution of land usage data :: Should be done once for rasterising
-#filenc = './input/LUD/g100_clc18_ROI2.nc'
-#dsROI = xr.open_dataset(filenc)
-#lat = dsROI.lat
-#lon = dsROI.lon
-#devlon = (lon -np.roll(lon,1))*0.5
-#devlon[0] = devlon[1]
-#devlat = (lat - np.roll(lat,1))*0.5
-#devlat[0] = devlat[1]
-#lonv, latv = np.meshgrid(lon,lat)
-#lond, latd = np.meshgrid(devlon,devlat)
-#ds2 = xr.Dataset({'lonvV': (['lat', 'lon'],  lonv),
-#                 'latvV': (['lat', 'lon'],  latv),
-#                 'lonvD': (['lat', 'lon'],  lond),
-#                 'latvD': (['lat', 'lon'],  latd)},
-#                 coords={'lon':lon,'lat':lat})
-#ds2['linelength'] = xr.zeros_like(ds2.lonvV)
-#ds2['trafficvolume'] = xr.zeros_like(ds2.lonvV)
-#ds2.to_netcdf(r'/scratch/snx3000/minsukim/input/OSMtraffic/spatial_coords_ROI2.nc')
 
 # %% Functions
 def make_grid_cells(pos):
@@ -105,12 +86,10 @@ def extract_traffic_info(i):
 
 global PATH, ROIbox, thres, ROI
 
-ROI = 'ROI2'
-PATH = r'/scratch/snx3000/minsukim/data/OSMtraffic' #for piz daint
-dataSpatial = xr.open_dataset(r'/scratch/snx3000/minsukim/input/'+ROI+ r'.nc') #use the land usage data (100 m resolution) as the targeted raster file
+ROI = 'ROI1'
+PATH = r'.' #for piz daint
+dataSpatial = xr.open_dataset(r'./input/'+ROI+ r'.nc') #use the land usage data (100 m resolution) as the targeted raster file
 
-#PATH = r'./data/traffic' #for local
-#dataSpatial = xr.open_dataset(r'./data/ROI1.nc')
 lat = dataSpatial.lat   
 lon = dataSpatial.lon
 devlon = (lon -np.roll(lon,1))*0.5
@@ -119,27 +98,17 @@ devlat = (lat - np.roll(lat,1))*0.5
 devlat[0] = devlat[1]
 thres = 0.001 #threshold for selecting a pixel for a road defined as a pixel resolution
 ROIbox = box(lon[0]-devlon[0],lat[0]-devlat[0],lon[-1]+devlon[-1],lat[-1]+devlat[-1])
-#params = client.scatter({'PATH':PATH,'ROIbox':ROIbox,'thres':thres, 'ROI':ROI}, broadcast=True)
 
 # %% extract traffic and road information in csv file for each nuts3
-df = pd.read_excel(r'/scratch/snx3000/minsukim/input/OSMtraffic/nuts3.xls')  #for local
+df = pd.read_excel(r'./input/OSMtraffic/nuts3.xls')  #for local
 ids = df['NUTS 3 ID (2010)'].dropna().values
 from joblib import Parallel, delayed
 Parallel(n_jobs=-1)(delayed(extract_traffic_info)(idn) for idn in ids)
-#
-#import joblib
-#with joblib.parallel_backend('dask'): 
-#    joblib.Parallel(verbose=100)(joblib.delayed(extract_traffic_info)(idn) for idn in ids)
-
-#futures = client.map(extract_traffic_info, ids) # assign jobs using dask clients
-#save_files = client.gather(futures)
-
 
 # %% Concat results to create one raster file
 
-filename = r'/scratch/snx3000/minsukim/input/OSMtraffic/spatial_coords_'+ROI+r'.nc'
+filename = r'./input/OSMtraffic/spatial_coords_'+ROI+r'.nc'
 raster_traffic = xr.open_dataset(filename, drop_variables={'lonvV','latvV', 'lonvD','latvD'})
-#raster_traffic = xr.open_dataset(r'./input/OSMtraffic/spatial_coords.nc', drop_variables={'lonvV','latvV', 'lonvD','latvD'})
 raster_traffic.linelength[:] = np.nan
 raster_traffic.trafficvolume[:] = np.nan
 length = np.full_like(raster_traffic.linelength,np.nan)

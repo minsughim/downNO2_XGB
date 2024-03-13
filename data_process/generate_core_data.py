@@ -1,7 +1,15 @@
 # -*- coding: utf-8 -*-
 """
 This script generates core dataset per stations 
-@author: kim (minsu.kim@empa.ch)
+
+Reference: 
+Minsu Kim, Dominik Brunner, Gerrit Kuhlmann (2021) 
+Importance of satellite observations for high-resolution mapping of near-surface NO2 by machine learning, 
+Remote sensing of Environment DOI: https://doi.org/10.1016/j.rse.2021.112573
+
+@author: Minsu Kim (minsu.kim@empa.ch) at Empa - Swiss Federal Laboratories for Materials Science and Technology
+ORCID:https://orcid.org/0000-0002-3942-3743
+
 """
 
 # %% import packages
@@ -36,9 +44,7 @@ def read_NO2_time_series_data(root, SSA):
 
 def save_data_from_near_stn(filename):    
 
-#for filename in AIRBASEfilenames:   
     picklename = filename[-21:-4] +'_features.pkl'
-    root = '/scratch/snx3000/minsukim/'
     if not os.path.isfile(os.path.join(root, 'data','pickles', ROI, picklename)): 
         stnname = metaAIRBASE.AirQualityStationEoICode==filename[-21:-14] 
         try:
@@ -65,8 +71,6 @@ def save_data_from_near_stn(filename):
             no2Timeseries = no2Timeseries[no2Timeseries.index.year ==2018]
 
             df1 = pd.merge(met_stn_series,mfdsNo2,left_index=True,right_index=True,how='outer') #(default) merge only rows existing in df (left)
-            #df1 = df1.reset_inedx()
-            #df1.index = df1.time
             df = pd.merge(no2Timeseries,df1,left_index=True,right_index=True,how='outer') # merge all rows and fill with nan
             df = df.drop(columns=['DatetimeBegin'])
     
@@ -84,11 +88,7 @@ def save_data_from_near_stn(filename):
             demfeature_input = demfeatureData.sel(**SSA).to_dataframe()
             for colname in list(demfeature_input):
                 df[colname] = np.asscalar(demfeature_input[colname])        
-            
-#            stnclassesData = xr.open_dataset(os.path.join(root, 'input', ROI+'_stn_classes.nc'))
-#            stnclass_input = stnclassesData.sel(**SSA).to_dataframe()
-#            for colname in list(stnclass_input):
-#                df[colname] = np.asscalar(stnclass_input[colname])     
+          
             
             df = df.reset_index(['lat','lon'])
             df.to_pickle(os.path.join(root, 'data','pickles', ROI, picklename))          
@@ -101,13 +101,11 @@ def save_data_from_near_stn(filename):
              
 # %% load data files of meteological data, no2 sentinal observation, other time invariant 
 
-root = '/scratch/snx3000/minsukim/'
 
-global metaAIRBASE,lon,lat,regionrange, ROI
+global metaAIRBASE,lon,lat,regionrange, ROI,root
 
-ROIlist = ['ROI1', 'ROI2']
-
-ROI = ROIlist[1]
+root = '.'
+ROI = 'ROI1'
 # loading time invariant data and airbase station information
 tinvData = xr.open_dataset(os.path.join(root, 'input', ROI+'_v2.nc'))
 metaBase = pd.read_csv(os.path.join(root, 'input','AIRBASE', 'metadata_AIRBASE.csv'))

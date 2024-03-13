@@ -1,4 +1,16 @@
 # -*- coding: utf-8 -*-
+"""
+Python script to linearly interpolate meteological data from ERA5 (30km scale) to 100m scale (for downno2 project)
+
+Reference: 
+Minsu Kim, Dominik Brunner, Gerrit Kuhlmann (2021) 
+Importance of satellite observations for high-resolution mapping of near-surface NO2 by machine learning, 
+Remote sensing of Environment DOI: https://doi.org/10.1016/j.rse.2021.112573
+
+@author: Minsu Kim (minsu.kim@empa.ch) at Empa - Swiss Federal Laboratories for Materials Science and Technology
+ORCID:https://orcid.org/0000-0002-3942-3743
+
+"""
 # %% import packages
 
 import xarray as xr
@@ -10,7 +22,6 @@ import textwrap
 
 # %%
 def interpolate_meteo(ds):   
-   root = '/scratch/snx3000/minsukim/'
    tinvData = xr.open_dataset(os.path.join(root, 'input', ROI+'_v2.nc'))   
    datestr = '%Y%m%d_%p'
    date = pd.to_datetime(ds.time[0].values)
@@ -39,7 +50,6 @@ def main():
         by Minsu Kim (minsu.kim@empa.ch)
     """)
             
-    root = '/scratch/snx3000/minsukim/'
     parser = argparse.ArgumentParser(description=description, epilog='',
             formatter_class=argparse.RawDescriptionHelpFormatter)   
     parser.add_argument('met_var', type=str, help='meteological data: choose one of t2m, v10, u10, cdir, tp, blh')
@@ -47,8 +57,9 @@ def main():
 
     args = parser.parse_args()
 
-    global ROI 
+    global ROI, root
     
+    root = '.'
     ROI = args.ROI
     mfdsMet = xr.open_dataset(os.path.join(root, 'data','ERA5', 'met_' + ROI + '.nc'))
 

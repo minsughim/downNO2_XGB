@@ -3,7 +3,15 @@
 Creating spatial data with gaussian convolution with different sigmas
 population density, road lenth density, and traffic volumes are convoltued for different scales, 1,2,4,8, 16 etc. (1 = 100m) 
 These variables are a proxy of emission sources
-@author: kim
+
+Reference: 
+Minsu Kim, Dominik Brunner, Gerrit Kuhlmann (2021) 
+Importance of satellite observations for high-resolution mapping of near-surface NO2 by machine learning, 
+Remote sensing of Environment DOI: https://doi.org/10.1016/j.rse.2021.112573
+
+@author: Minsu Kim (minsu.kim@empa.ch) at Empa - Swiss Federal Laboratories for Materials Science and Technology
+ORCID:https://orcid.org/0000-0002-3942-3743
+
 """
 import scipy.ndimage as ndi
 import xarray as xr
@@ -26,11 +34,7 @@ ROI = 'ROI1'
 tinvData = xr.open_dataset(os.path.join(root, 'input', ROI+'_v2.nc'))
 lat = tinvData.lat
 lon = tinvData.lon
-# TODO: The boundaries are treated in a model of 'reflect'. It needs an adequte mode by applying bigger domain.
-xg = ndi.gaussian_filter(elevation,5)
-temp = ndi.filters.laplace(xg)
-plt.imshow(temp)
-plt.colorbar()
+
 
 ds = xr.Dataset()
 for i in np.arange(0,10,1):
@@ -51,20 +55,3 @@ for i in np.arange(0,10,1):
         
 ds.to_netcdf(os.path.join(root, 'data',ROI+r'_tinvData_gaussian.nc'))
 
-# %% To quickly plot the output
-import cartopy.crs as ccrs
-from matplotlib.colors import LogNorm
-import matplotlib as mpl
-import cartopy
-import matplotlib.pyplot as plt
-
-fig = plt.figure(figsize=(6,4))
-ax = plt.axes(projection=ccrs.PlateCarree())
-ax.add_feature(cartopy.feature.LAND.with_scale('50m'))
-ax.add_feature(cartopy.feature.COASTLINE.with_scale('50m'))
-ax.add_feature(cartopy.feature.BORDERS.with_scale('50m'), linestyle=':')
-ax.add_feature(cartopy.feature.LAKES.with_scale('50m'))
-ax.add_feature(cartopy.feature.RIVERS.with_scale('50m'))
-ax.set_extent(def_bbox(ROI))    
-plt.pcolormesh(lon,lat,temp10,cmap='Spectral_r',alpha=0.5)
-plt.colorbar()

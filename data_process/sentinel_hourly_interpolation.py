@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 """
 This script is to interpolate daily satelliate observation (TROPOMI, Sentinel 5p) to hourly (temporal linear interpolation)
+Reference: 
+Minsu Kim, Dominik Brunner, Gerrit Kuhlmann (2021) 
+Importance of satellite observations for high-resolution mapping of near-surface NO2 by machine learning, 
+Remote sensing of Environment DOI: https://doi.org/10.1016/j.rse.2021.112573
 
-@author: kim
+@author: Minsu Kim (minsu.kim@empa.ch) at Empa - Swiss Federal Laboratories for Materials Science and Technology
+ORCID:https://orcid.org/0000-0002-3942-3743
+
 """
 # %% import packages
 import xarray as xr
@@ -39,9 +45,8 @@ def temporal_interpolation_satellite_data_end(ds_part): # at the end of the time
 
 # %%
     
-root = '/scratch/snx3000/minsukim/'
-ROIlist = ['ROI1', 'ROI2']
-ROI = ROIlist[0]
+root = '.'
+ROI = 'ROI1'
 mfds = read_NO2_time_series_data(root, ROI)
 
 from joblib import Parallel, delayed

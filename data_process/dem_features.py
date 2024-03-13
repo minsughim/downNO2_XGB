@@ -4,7 +4,16 @@ This script generates a netCDF of features realted to Digital Elevation Model (d
 The features are the reconstructed dem with wavelet (here, Daubechies wavelet 2, db2, has been used as a means of multiscale analysis) that are high-pass filtered
 (Ideally, fractional spline wavelet tansform can be used (assuming that geomorphology is self-affine. However, the default pywavelet does not include this wavelet, thus use db2. To do this, a customised wavelet is necessary.)
 We use the levels of 10, 8, 6, and 4 for the features in this script, with the feature name of dem_hpf_1, 2, 3, and 4, respectively.
-@author: kim (minsu.kim@empa.ch)
+
+
+Reference: 
+Minsu Kim, Dominik Brunner, Gerrit Kuhlmann (2021) 
+Importance of satellite observations for high-resolution mapping of near-surface NO2 by machine learning, 
+Remote sensing of Environment DOI: https://doi.org/10.1016/j.rse.2021.112573
+
+@author: Minsu Kim (minsu.kim@empa.ch) at Empa - Swiss Federal Laboratories for Materials Science and Technology
+ORCID:https://orcid.org/0000-0002-3942-3743
+
 """
 # %% import packages
 
@@ -32,7 +41,7 @@ def get_target_index(ROI):
     return lat, lon
 
 # %%
-root = '/scratch/snx3000/minsukim/'
+root = '.'
 ROIlist = ['ROI1', 'ROI2']
 for ROI in ROIlist: 
     
