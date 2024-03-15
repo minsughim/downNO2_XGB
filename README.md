@@ -83,4 +83,4 @@ https://github.com/minsughim/downNO2_XGB/assets/38297771/1cb24f3e-e414-4c90-ad81
 **Minsu Kim**, Dominik Brunner, Gerrit Kuhlmann. Importance of satellite observations for high-resolution mapping of near-surface NO<sub>2</sub> by machine learning, _Remote Sensing of Environment_, __264__,112573,
 [https://doi.org/10.1016/j.rse.2021.112573](https://doi.org/10.1016/j.rse.2021.112573 "Persistent link using digital object identifier"), 2021.
 
-**Minsu Kim**, Kuhlmann Gerrit, and Brunner Dominik. Dataset for: Importance of satellite observations for high-resolution mapping of near-surface NO<sub>2</sub> by machine learning. *Zenodo*, 14(23):5403-5424, DOI: http://doi.org/10.5281/zenodo.5036643, 2021. 
+**Minsu Kim**, Gerrit Kuhlmann, and Dominik Brunner. Dataset for: Importance of satellite observations for high-resolution mapping of near-surface NO<sub>2</sub> by machine learning. *Zenodo*, 14(23):5403-5424, DOI: http://doi.org/10.5281/zenodo.5036643, 2021. 
